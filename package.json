@@ -1,6 +1,20 @@
 {
-  "name": "hackathon",
+  "name": "hack2025",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "main": "src/server.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "@koa/router": "^12.0.0",
+    "dotenv": "^16.0.3",
+    "koa": "^2.14.2",
+    "koa-static": "^5.0.0",
+    "node-fetch": "^2.6.9"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
 }

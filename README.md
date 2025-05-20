@@ -2,6 +2,10 @@
 
 A simple Node.js service that communicates with OpenAI's chat endpoint using Koa and node-fetch.
 
+A very basic chat UI was added as an easy way to add prompts and see how OpenAI reacts.
+System prompts can be added to the messages array in public/app.js.
+The conversation is stored in memory, so refreshing the page restarts the conversation but the system prompts will always be there.
+
 ## Setup
 
 1. Install dependencies:
