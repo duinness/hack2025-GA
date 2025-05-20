@@ -20,6 +20,10 @@ PORT=3000
 node src/server.js
 ```
 
+## UI Usage
+Use a web browser and navigate to localhost:3000
+Chat away
+
 ## API Usage
 
 ### Chat Endpoint
