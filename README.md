@@ -21,8 +21,7 @@ node src/server.js
 ```
 
 ## UI Usage
-Use a web browser and navigate to localhost:3000
-Chat away
+Use a web browser and navigate to localhost:3000 and chat away
 
 ## API Usage
 
