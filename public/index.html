@@ -36,12 +36,23 @@
                     ></textarea>
                     <button id="addSystemPrompt">Add</button>
                 </div>
+                <div class="pdf-upload-section">
+                    <div id="pdfDropZone" class="pdf-drop-zone">
+                        <div class="drop-zone-content">
+                            <span class="drop-zone-icon">📄</span>
+                            <p>Drag & Drop PDF here</p>
+                            <p class="drop-zone-hint">or click to select file</p>
+                        </div>
+                        <input type="file" id="pdfFileInput" accept=".pdf" style="display: none;">
+                    </div>
+                </div>
                 <div id="systemPromptsList" class="system-prompts-list">
                     <!-- System prompts will be added here dynamically -->
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html> 
