@@ -8,20 +8,36 @@
 </head>
 <body>
     <div class="container">
-        <div class="chat-container">
-            <div class="chat-messages" id="chatMessages"></div>
-            <div class="chat-input-container">
-                <textarea 
-                    id="userInput" 
-                    placeholder="Type your message here..." 
-                    rows="3"
-                ></textarea>
-                <div class="controls">
-                    <label class="stream-toggle">
-                        <input type="checkbox" id="streamToggle" checked>
-                        Enable Streaming
-                    </label>
-                    <button id="sendButton">Send</button>
+        <div class="main-content">
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages"></div>
+                <div class="chat-input-container">
+                    <textarea 
+                        id="userInput" 
+                        placeholder="Type your message here..." 
+                        rows="3"
+                    ></textarea>
+                    <div class="controls">
+                        <label class="stream-toggle">
+                            <input type="checkbox" id="streamToggle" checked>
+                            Enable Streaming
+                        </label>
+                        <button id="sendButton">Send</button>
+                    </div>
+                </div>
+            </div>
+            <div class="system-prompts-panel">
+                <h3>System Prompts</h3>
+                <div class="system-prompt-input">
+                    <textarea 
+                        id="systemPromptInput" 
+                        placeholder="Enter a system prompt..." 
+                        rows="3"
+                    ></textarea>
+                    <button id="addSystemPrompt">Add</button>
+                </div>
+                <div id="systemPromptsList" class="system-prompts-list">
+                    <!-- System prompts will be added here dynamically -->
                 </div>
             </div>
         </div>

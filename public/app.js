@@ -3,8 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const userInput = document.getElementById('userInput');
     const sendButton = document.getElementById('sendButton');
     const streamToggle = document.getElementById('streamToggle');
+    const systemPromptInput = document.getElementById('systemPromptInput');
+    const addSystemPromptButton = document.getElementById('addSystemPrompt');
+    const systemPromptsList = document.getElementById('systemPromptsList');
 
-    // Initialize messages array with system message
+    // Initialize messages array with system messages
     let messages = [
       {
         role: 'system',
@@ -16,7 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         role: 'system',
         content: `You will generate tailored project prompts, inclusive rubrics, and iterative feedback guidance for the user to design tests for a class.`
-      }];
+      }
+    ];
+
+    // Display initial system prompts in the UI
+    messages.forEach(message => {
+        if (message.role === 'system') {
+            addSystemPrompt(message.content);
+        }
+    });
 
     function isAtBottom() {
         const threshold = 100; // pixels from bottom to consider "at bottom"
@@ -35,6 +46,38 @@ document.addEventListener('DOMContentLoaded', () => {
         messageDiv.textContent = content;
         chatMessages.appendChild(messageDiv);
         scrollToBottom();
+    }
+
+    function addSystemPrompt(prompt) {
+        // Add to messages array
+        messages.push({
+            role: 'system',
+            content: prompt
+        });
+
+        // Add to UI
+        const promptItem = document.createElement('div');
+        promptItem.className = 'system-prompt-item';
+        
+        const promptText = document.createElement('div');
+        promptText.textContent = prompt;
+        
+        const removeButton = document.createElement('button');
+        removeButton.className = 'remove-prompt';
+        removeButton.textContent = '×';
+        removeButton.onclick = () => {
+            // Remove from messages array
+            const index = messages.findIndex(m => m.role === 'system' && m.content === prompt);
+            if (index !== -1) {
+                messages.splice(index, 1);
+            }
+            // Remove from UI
+            promptItem.remove();
+        };
+
+        promptItem.appendChild(promptText);
+        promptItem.appendChild(removeButton);
+        systemPromptsList.appendChild(promptItem);
     }
 
     function addTypingIndicator() {
@@ -175,6 +218,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             sendMessage();
+        }
+    });
+
+    addSystemPromptButton.addEventListener('click', () => {
+        const prompt = systemPromptInput.value.trim();
+        if (prompt) {
+            addSystemPrompt(prompt);
+            systemPromptInput.value = '';
+        }
+    });
+
+    systemPromptInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            addSystemPromptButton.click();
         }
     });
 }); 
