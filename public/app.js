@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const systemPromptsList = document.getElementById('systemPromptsList');
     const pdfDropZone = document.getElementById('pdfDropZone');
     const pdfFileInput = document.getElementById('pdfFileInput');
+    const assessmentOptions = document.getElementById('assessmentOptions');
 
     // Initialize PDF.js worker
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -53,12 +54,70 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function parseAssessmentOptions(content) {
+        // Look for numbered options in the content
+        const optionRegex = /(?:Option|Assessment)\s*(\d+)[:.]\s*([\s\S]*?)(?=(?:Option|Assessment)\s*\d+[:.]|$)/gi;
+        const options = [];
+        let match;
+
+        while ((match = optionRegex.exec(content)) !== null) {
+            options.push({
+                number: match[1],
+                content: match[2].trim()
+            });
+        }
+
+        return options;
+    }
+
+    function displayAssessmentOptions(options) {
+        assessmentOptions.innerHTML = '';
+        assessmentOptions.classList.add('visible');
+
+        options.forEach(option => {
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'assessment-option';
+            optionDiv.innerHTML = `
+                <h4>Option ${option.number}</h4>
+                <p>${option.content}</p>
+                <button class="select-button">Select this option</button>
+            `;
+
+            optionDiv.addEventListener('click', () => {
+                // Remove selected class from all options
+                document.querySelectorAll('.assessment-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                // Add selected class to clicked option
+                optionDiv.classList.add('selected');
+            });
+
+            assessmentOptions.appendChild(optionDiv);
+        });
+
+        // Scroll chat messages to bottom after adding options
+        setTimeout(() => {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 100);
+    }
+
     function addMessage(content, role) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${role}-message`;
         messageDiv.textContent = content;
         chatMessages.appendChild(messageDiv);
-        scrollToBottom();
+        
+        // If this is an assistant message, check for assessment options
+        if (role === 'assistant') {
+            const options = parseAssessmentOptions(content);
+            if (options.length >= 3) {
+                displayAssessmentOptions(options);
+            } else {
+                scrollToBottom();
+            }
+        } else {
+            scrollToBottom();
+        }
     }
 
     function addSystemPrompt(prompt) {
@@ -200,6 +259,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         messages.push({ role: 'assistant', content: assistantMessage });
+        
+        // Check for assessment options after streaming is complete
+        const options = parseAssessmentOptions(assistantMessage);
+        if (options.length >= 3) {
+            displayAssessmentOptions(options);
+        }
     }
 
     async function handleRegularResponse() {

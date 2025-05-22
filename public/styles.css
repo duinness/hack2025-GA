@@ -31,6 +31,7 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    height: 80vh;
 }
 
 .system-prompts-panel {
@@ -93,6 +94,7 @@ body {
     flex: 1;
     overflow-y: auto;
     padding: 1rem;
+    min-height: 0;
 }
 
 .message {
@@ -117,6 +119,7 @@ body {
     padding: 1rem;
     border-top: 1px solid #eee;
     background: white;
+    flex-shrink: 0;
 }
 
 textarea {
@@ -251,4 +254,58 @@ button:disabled {
 .drop-zone-hint {
     font-size: 0.9rem;
     color: #666;
+}
+
+.assessment-options {
+    display: none;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
+.assessment-options.visible {
+    display: block;
+}
+
+.assessment-option {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.assessment-option:hover {
+    border-color: #007AFF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.assessment-option.selected {
+    border-color: #007AFF;
+    background-color: #f0f7ff;
+}
+
+.assessment-option h4 {
+    margin: 0 0 0.5rem 0;
+    color: #333;
+}
+
+.assessment-option p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.assessment-option .select-button {
+    display: none;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.assessment-option.selected .select-button {
+    display: block;
 } 
