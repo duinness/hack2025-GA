@@ -1,4 +1,59 @@
-# OpenAI Chat Service
+# OpenAI Chat Service & MODO Project
+
+This repository contains two projects:
+1. A simple Node.js service that communicates with OpenAI's chat endpoint
+2. MODO - A hackathon project for assessment generation
+
+## MODO Project (Hackathon Demo)
+
+The MODO project is located in the `project` directory and consists of a React-based frontend and an Express-based backend.
+
+### Running MODO Backend
+
+1. Navigate to the server directory:
+```bash
+cd project/server
+```
+
+2. Install dependencies:
+```bash
+yarn install
+```
+
+3. Create a `.env` file with your OpenAI API key:
+```
+OPENAI_API_KEY=your_api_key_here
+```
+
+4. Start the development server:
+```bash
+yarn dev
+```
+
+The backend will be available at `http://localhost:3000`
+
+### Running MODO Frontend
+
+1. Navigate to the project directory:
+```bash
+cd project
+```
+
+2. Install dependencies:
+```bash
+yarn install
+```
+
+3. Start the development server:
+```bash
+yarn dev
+```
+
+The frontend will be available at `http://localhost:5173`
+
+Note: Both the frontend and backend need to be running simultaneously for the full application to work.
+
+## Original OpenAI Chat Service
 
 A simple Node.js service that communicates with OpenAI's chat endpoint using Koa and node-fetch.
 
